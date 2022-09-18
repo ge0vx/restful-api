@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  api:
+    #image: nestjs-luckyapp
+    build:
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/db
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres:12.12
+    ports:
+      - "3001:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+
+
+
+
+    
