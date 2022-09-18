@@ -26,8 +26,8 @@ export class UsersService {
     return from(this.userRepository.find());
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return from(this.userRepository.findOneBy({id}));
   }
 
 }
