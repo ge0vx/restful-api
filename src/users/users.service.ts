@@ -14,7 +14,9 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<Observable<CreateUserDto>>{
+  async create(
+    createUserDto: CreateUserDto,
+  ): Promise<Observable<CreateUserDto>> {
     const { password } = createUserDto;
     const plainToHash = await hash(password, 10);
     return from(
@@ -26,8 +28,7 @@ export class UsersService {
     return from(this.userRepository.find());
   }
 
-  findOne(id: string) {
-    return from(this.userRepository.findOneBy({id}));
+  findOne(id: string): Observable<CreateUserDto> {
+    return from(this.userRepository.findOneBy({ id }));
   }
-
 }
