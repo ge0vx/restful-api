@@ -73,18 +73,39 @@ CREATE TABLE public.country (
 ALTER TABLE public.country OWNER TO "user";
 
 --
+-- Name: profile; Type: TABLE; Schema: public; Owner: user
+--
+
+CREATE TABLE public.profile (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name character varying NOT NULL,
+    user_id uuid,
+    address_id uuid
+);
+
+
+ALTER TABLE public.profile OWNER TO "user";
+
+--
 -- Name: user; Type: TABLE; Schema: public; Owner: user
 --
 
 CREATE TABLE public."user" (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     username character varying NOT NULL,
-    password character varying NOT NULL,
-    address_id uuid
+    password character varying NOT NULL
 );
 
 
 ALTER TABLE public."user" OWNER TO "user";
+
+--
+-- Name: profile PK_3dd8bfc97e4a77c70971591bdcb; Type: CONSTRAINT; Schema: public; Owner: user
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT "PK_3dd8bfc97e4a77c70971591bdcb" PRIMARY KEY (id);
+
 
 --
 -- Name: city PK_b222f51ce26f7e5ca86944a6739; Type: CONSTRAINT; Schema: public; Owner: user
@@ -119,11 +140,19 @@ ALTER TABLE ONLY public.address
 
 
 --
--- Name: user REL_302d96673413455481d5ff4022; Type: CONSTRAINT; Schema: public; Owner: user
+-- Name: profile REL_d752442f45f258a8bdefeebb2f; Type: CONSTRAINT; Schema: public; Owner: user
 --
 
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT "REL_302d96673413455481d5ff4022" UNIQUE (address_id);
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT "REL_d752442f45f258a8bdefeebb2f" UNIQUE (user_id);
+
+
+--
+-- Name: profile REL_fb70f0dc1dda3ae5e1b7fb0c93; Type: CONSTRAINT; Schema: public; Owner: user
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT "REL_fb70f0dc1dda3ae5e1b7fb0c93" UNIQUE (address_id);
 
 
 --
@@ -135,19 +164,27 @@ ALTER TABLE ONLY public.city
 
 
 --
--- Name: user FK_302d96673413455481d5ff4022a; Type: FK CONSTRAINT; Schema: public; Owner: user
---
-
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT "FK_302d96673413455481d5ff4022a" FOREIGN KEY (address_id) REFERENCES public.address(id);
-
-
---
 -- Name: address FK_714a4ca3cfd66a718b5f7c3fee5; Type: FK CONSTRAINT; Schema: public; Owner: user
 --
 
 ALTER TABLE ONLY public.address
     ADD CONSTRAINT "FK_714a4ca3cfd66a718b5f7c3fee5" FOREIGN KEY (city_id) REFERENCES public.city(id);
+
+
+--
+-- Name: profile FK_d752442f45f258a8bdefeebb2f2; Type: FK CONSTRAINT; Schema: public; Owner: user
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT "FK_d752442f45f258a8bdefeebb2f2" FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: profile FK_fb70f0dc1dda3ae5e1b7fb0c93e; Type: FK CONSTRAINT; Schema: public; Owner: user
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT "FK_fb70f0dc1dda3ae5e1b7fb0c93e" FOREIGN KEY (address_id) REFERENCES public.address(id);
 
 
 --

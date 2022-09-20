@@ -1,17 +1,16 @@
-import {Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
-import {Address} from './address.entity';
+import {Column, Entity, PrimaryGeneratedColumn, OneToOne} from 'typeorm';
+import { Profile } from './profile.entity';
 @Entity()
 export class User {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column()
+    @Column({ unique: true })
     username: string;
 
     @Column()
     password: string;
 
-    @OneToOne(()=>Address)
-    @JoinColumn({name: 'address_id'})
-    address: Address
+    @OneToOne(()=> Profile, (profile)  => profile.user)
+    profile: Profile;
 }

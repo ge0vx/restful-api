@@ -11,6 +11,9 @@ export class CreateUserDto {
     password: string;
 
     @IsNotEmpty()
+    name: string;
+
+    @IsNotEmpty()
     address: string;
 
     @IsNotEmpty()
