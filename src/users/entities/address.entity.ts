@@ -1,20 +1,21 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, OneToOne} from 'typeorm';
-import {City} from './city.entity'
-/*import {User} from './user.entity';*/
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
+import { City } from './city.entity';
 
 @Entity()
 export class Address {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  street: string;
 
-    @ManyToOne(() => City, (city)=> city.addresses)
-    @JoinColumn({name: 'city_id'})
-    city: City;
-/*
-    @OneToOne(()=>User, (user) => user.address)
-    user:User;
-*/
+  @ManyToOne(() => City, (city) => city.addresses)
+  @JoinColumn({ name: 'city_id' })
+  city: City;
 }

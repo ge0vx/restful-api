@@ -18,7 +18,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { UserI } from './entities/user.interface';
+import { UserI, UserResponse } from './entities/user.interface';
 
 @ApiBearerAuth()
 @ApiTags('users')
@@ -30,13 +30,12 @@ export class UsersController {
   ) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): Promise<Observable<UserI>> {
     return this.usersService.create(createUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): Observable<CreateUserDto[]> {
+  findAll() {
     return this.usersService.findAll();
   }
 
@@ -45,7 +44,7 @@ export class UsersController {
   @CacheKey('cache-user')
   @CacheTTL(120)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<UserResponse> {
     return this.usersService.findOne(id);
   }
 }
