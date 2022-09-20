@@ -4,24 +4,6 @@
 
 ## Installation
 
-```bash
-$ npm install
-```
-
-## Running the app locally
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-
-```
-
 # Requiriments
 - Node v16.13.1
 - Docker v20.10.17
@@ -29,18 +11,13 @@ $ npm run start:prod
 Builds, (re)creates, starts, attaches to containers for a service.
 `docker-compose up`
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Inser User
+use the next cityId to insert a valid city when creating a user:
 ```
+1f914780-3892-11ed-a261-0242ac120002
+```
+
+## Test
 
 ## License
 
